@@ -49,15 +49,20 @@ sudo dd if=/dev/mmcblk2 bs=512 skip=38192 count=2 status=none | hexdump -C
 
 ## Bricked?
 
-If as on MY 3D printer, you only have a EMMC, and you bricked it. A trick is to put in contact the EMMC CLK and GND through a 100nF capacitor at start. This will render the clock trace ineffective and mask the EMMC from the Allwinner A33. The chip will start FEL mode.
+If as on MY A33 system, you only have a EMMC, and you bricked it. A trick is to put in contact the EMMC CLK 33R resistor and GND through a 100nF capacitor at powerup. This will render the clock trace ineffective without destroying it and mask the EMMC from the Allwinner A33. The chip will start in FEL mode.
+
+![Capacitor trick](picture/capacitortrick.jpeg)
+
+You can figure ou the pin using the A33 pin description or find a schematic.
 
 ## History
 
-Because on the m200 3D printer, I was losing the FEL mode if I wrote u-boot mainline over the Boot0 partition. And I bricked my device twice, and repaired it by replacing the EMMC chip.
-I needed a way to load u-boot from EMMC and while FEL mode worked wel, the method of chainloading u-boot was not satisfying. With missing emmc, and some problems at panel init compared to the u-boot loaded using FEL mode.
-After a day of trying what I could think of, I stumbled upon the Boot0 source code from Allwinner and made this tool.
+On my A33 system, I was losing the FEL mode if I wrote u-boot mainline over the Boot0 partition. And I bricked my device twice, I repaired it by replacing the EMMC chip.
+I needed a way to load u-boot from EMMC and while FEL mode worked wel, the method of chainloading u-boot from sunxi Boot1 was not satisfying. With a missing emmc, and some problems at panel init compared to the u-boot loaded using FEL mode.
+After a day of trying what I could think of to load a mainline Linux using the legacy Boot1, I stumbled upon the Boot0 source code from Allwinner and made this tool (drafted using AI code, hence python, I worked on the checksum and added a TEXT segment check at the end).
+And I lost my commits, because after I brciked my printer, I decided to delete the repo finding it too dangerous.
+And then figured out how to make it work but my cp command ignored the git files...
 
 ## TODO
 
 This tool has harcoded values for Alwinner A33. It could be better to copy those values from the original data.
-
