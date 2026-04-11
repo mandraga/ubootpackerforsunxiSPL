@@ -129,4 +129,4 @@ if __name__ == "__main__":
     # Check u-boot entry point with the provided input binary.
     warn_if_unshifted_entry_point(sys.argv[1])
     
-    embed_uboot(sys.argv[1], sys.argv[2])
+    embed_uboot(sys.argv[2], sys.argv[3])
