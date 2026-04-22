@@ -1,6 +1,7 @@
 # sunxiSPL_to_uboot_proper
 
 A script to pack uboot proper in a structure recognised by sunxi u-boot SPL.
+For me it did not work because the kernel seemed to have problems loading.
 
 ## Why?
 
